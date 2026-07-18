@@ -1,31 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
-
-// ---- Server function for form submissions ----
-const submitEvaluation = createServerFn({ method: "POST" })
-  .validator(
-    (data: unknown) => data as {
-      startupName: string;
-      stage: string;
-      description: string;
-      url: string;
-      email: string;
-    }
-  )
-  .handler(async ({ data }) => {
-    // Log the submission (replace with DB write when database is connected)
-    console.log("=== StartupIQ Evaluation Submission ===");
-    console.log("Startup Name:", data.startupName);
-    console.log("Stage:", data.stage);
-    console.log("Description:", data.description);
-    console.log("URL:", data.url);
-    console.log("Email:", data.email);
-    console.log("Submitted at:", new Date().toISOString());
-    console.log("========================================");
-
-    return { success: true };
-  });
+import { evaluate } from "./api/-evaluate";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -462,6 +437,7 @@ function Pricing() {
 }
 
 function SubmissionForm() {
+  const router = useRouter();
   const [formState, setFormState] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
@@ -475,24 +451,32 @@ function SubmissionForm() {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    // Map human-readable stage labels to evaluate-compatible values
+    const stageMap: Record<string, string> = {
+      Concept: "concept",
+      Prototype: "prototype",
+      MVP: "mvp",
+      "Revenue-Generating": "revenue",
+      "Acquisition-Ready": "acquisition-ready",
+    };
+    const rawStage = String(formData.get("stage") ?? "");
+    const stage = stageMap[rawStage] || rawStage.toLowerCase();
+
     try {
-      const result = await submitEvaluation({
+      const result = await evaluate({
         data: {
           startupName: String(formData.get("startupName") ?? ""),
-          stage: String(formData.get("stage") ?? ""),
+          stage,
           description: String(formData.get("description") ?? ""),
           url: String(formData.get("url") ?? ""),
           email: String(formData.get("email") ?? ""),
         },
       });
 
-      if (result.success) {
-        setFormState("success");
-        form.reset();
-      } else {
-        setFormState("error");
-        setErrorMsg("Something went wrong. Please try again.");
-      }
+      setFormState("success");
+      form.reset();
+      // Navigate to the results page with the real evaluation data
+      router.navigate({ to: "/results", state: { result } });
     } catch (err) {
       setFormState("error");
       setErrorMsg(
