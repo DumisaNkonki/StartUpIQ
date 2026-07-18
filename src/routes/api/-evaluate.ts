@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { evaluateStartup } from "../../lib/evaluate";
+import { sendEvaluationEmail } from "../../lib/email";
 import type { SubmissionData, Stage } from "../../lib/stages";
 
 // Valid stage values
@@ -142,5 +143,13 @@ export const evaluate = createServerFn({ method: "POST" })
     }
 
     const result = await evaluateStartup(submission);
+
+    // Fire-and-forget: send evaluation email if founder provided an email address
+    if (submission.founderEmail) {
+      sendEvaluationEmail(submission.founderEmail, result).catch((err) => {
+        console.error("Async email send failed:", err);
+      });
+    }
+
     return result;
   });
