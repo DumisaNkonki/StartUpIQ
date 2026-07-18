@@ -55,6 +55,7 @@ function RootComponent() {
     <RootDocument>
       <SiteNav />
       <Outlet />
+      <SiteFooter />
     </RootDocument>
   );
 }
@@ -94,6 +95,39 @@ function SiteNav() {
         </div>
       </div>
     </nav>
+  );
+}
+
+function SiteFooter() {
+  const legalLinks = [
+    { label: "Privacy Policy", href: "/legal/privacy" },
+    { label: "Terms of Service", href: "/legal/terms" },
+    { label: "AI Disclaimer", href: "/legal/ai-disclaimer" },
+    { label: "Investment/Financial Disclaimer", href: "/legal/investment-disclaimer" },
+    { label: "Cookie Policy", href: "/legal/cookies" },
+    { label: "Refund Policy", href: "/legal/refunds" },
+    { label: "Acceptable Use Policy", href: "/legal/acceptable-use" },
+  ];
+
+  return (
+    <footer className="w-full border-t border-gray-800/60 bg-gray-950 py-8">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-gray-500">
+          {legalLinks.map((link) => (
+            <Link
+              key={link.href}
+              to={link.href}
+              className="hover:text-gray-300 transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+        <p className="mt-4 text-center text-xs text-gray-600">
+          &copy; {new Date().getFullYear()} StartupIQ. All rights reserved.
+        </p>
+      </div>
+    </footer>
   );
 }
 
