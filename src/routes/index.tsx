@@ -33,35 +33,6 @@ export const Route = createFileRoute("/")({
 
 // ---- Section Components ----
 
-function NavBar() {
-  return (
-    <nav className="fixed top-0 z-50 w-full border-b border-gray-800/60 bg-gray-950/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <a href="#" className="flex items-center gap-2">
-          <span className="text-xl font-bold tracking-tight">
-            <span className="text-indigo-400">Startup</span>
-            <span className="text-white">IQ</span>
-          </span>
-        </a>
-        <div className="flex items-center gap-6 text-sm text-gray-400">
-          <a href="#how-it-works" className="hover:text-white transition-colors">
-            How It Works
-          </a>
-          <a href="#pricing" className="hover:text-white transition-colors">
-            Pricing
-          </a>
-          <a
-            href="#submit"
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500 transition-colors"
-          >
-            Evaluate Your Startup
-          </a>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
 function Hero() {
   return (
     <section className="relative flex min-h-dvh items-center justify-center overflow-hidden px-6 pt-20">
@@ -835,7 +806,6 @@ function Footer() {
 function Home() {
   return (
     <div className="min-h-dvh">
-      <NavBar />
       <Hero />
       <HowItWorks />
       <Pricing />

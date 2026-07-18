@@ -1,0 +1,362 @@
+[
+  {
+    "id": "neuropilot-01",
+    "startupName": "NeuroPilot",
+    "shortDescription": "AI-powered mental health companion for remote workers — early intervention through conversational AI and mood tracking.",
+    "industry": "HealthTech",
+    "category": "Mental Health",
+    "tags": ["AI", "HealthTech", "Remote Work", "SaaS"],
+    "detectedStage": "concept",
+    "selfReportedStage": "concept",
+    "stageDiscrepancy": false,
+    "dimensionScores": [
+      { "id": "D1", "name": "Problem Severity", "score": 9, "weight": 0.25, "weightedContribution": 22.5, "reasoning": "Remote worker mental health is a critical, growing crisis — 76% of remote workers report burnout. Current solutions (traditional therapy, EAPs) are expensive, inaccessible, or stigmatized. Acute pain point with strong evidence.", "confidence": "high" },
+      { "id": "D2", "name": "Market Opportunity", "score": 8, "weight": 0.25, "weightedContribution": 20, "reasoning": "Global mental health market projected at $537B by 2030 (CAGR 17.3%). Remote work demographic is 1B+ people. Strong macro tailwinds in mental health normalization and AI healthcare adoption.", "confidence": "high" },
+      { "id": "D3", "name": "Competitive Differentiation", "score": 7, "weight": 0.2, "weightedContribution": 14, "reasoning": "Combines conversational AI with passive mood sensing — competitors (Woebot, Wysa) focus on CBT scripts. NeuroPilot's multi-modal approach and integration with workplace tools (Slack, Teams) is differentiated.", "confidence": "medium" },
+      { "id": "D4", "name": "Founder Capability", "score": 8, "weight": 0.15, "weightedContribution": 12, "reasoning": "Founder is a clinical psychologist with 8 years experience + prior health-tech startup (acquired by Teladoc for $34M). Strong founder-market fit with rare dual clinical/entrepreneurial expertise.", "confidence": "high" },
+      { "id": "D5", "name": "Execution Feasibility", "score": 6, "weight": 0.1, "weightedContribution": 6, "reasoning": "Clear 90-day plan with defined MVP scope. Timeline is realistic. Key risk: clinical validation pathway is unclear and regulatory (HIPAA, FDA) complexity is underexplored.", "confidence": "medium" },
+      { "id": "D6", "name": "Market Timing", "score": 8, "weight": 0.05, "weightedContribution": 4, "reasoning": "Perfect timing: post-pandemic mental health awareness is at an all-time high. Employer wellness spending is growing 19% YoY. AI regulation for low-risk applications (wellness vs. diagnosis) is favorable.", "confidence": "high" }
+    ],
+    "stageScore": 79,
+    "overallScore": 67,
+    "scoreLabel": "Solid",
+    "percentile": 72,
+    "topStrengths": [
+      { "dimension": "Problem Severity", "score": 9, "explanation": "Critical mental health crisis among remote workers is well-documented and worsening, with strong multi-source evidence." },
+      { "dimension": "Founder Capability", "score": 8, "explanation": "Rare combination of clinical psychology domain expertise and prior successful health-tech startup exit." },
+      { "dimension": "Market Opportunity", "score": 8, "explanation": "Massive and rapidly growing market with powerful secular tailwinds in mental health and AI adoption." }
+    ],
+    "topWeaknesses": [
+      { "dimension": "Execution Feasibility", "score": 6, "explanation": "Clinical validation pathway and HIPAA/FDA regulatory requirements are not fully addressed in the current plan.", "recommendation": "Engage a regulatory consultant to map HIPAA compliance and FDA's SaMD (Software as Medical Device) framework before development begins." },
+      { "dimension": "Competitive Differentiation", "score": 7, "explanation": "While differentiated, the competitive landscape is well-funded — Woebot raised $130M+. Need stronger moat defensibility.", "recommendation": "Document your proprietary mood-sensing IP with provisional patents. Build a detailed competitive matrix showing how multi-modal AI vs. scripted CBT is defensible." },
+      { "dimension": "Market Timing", "score": 8, "explanation": "Strong timing, but employer wellness budgets may face pressure in an economic downturn.", "recommendation": "Maintain and monitor — this is a strength." }
+    ],
+    "summary": "Solid — Your Concept-stage startup demonstrates strong fundamentals, particularly in problem severity and founder capability. Your primary opportunity for improvement lies in execution feasibility. You are well-positioned for the next stage of growth.",
+    "modelVersion": "1.0",
+    "createdAt": "2026-06-15T10:30:00Z"
+  },
+  {
+    "id": "chainvote-02",
+    "startupName": "ChainVote",
+    "shortDescription": "Blockchain-based voting platform for corporate governance and shareholder resolutions.",
+    "industry": "Blockchain",
+    "category": "Governance Tech",
+    "tags": ["Blockchain", "Governance", "Enterprise", "Web3"],
+    "detectedStage": "concept",
+    "selfReportedStage": "concept",
+    "stageDiscrepancy": false,
+    "dimensionScores": [
+      { "id": "D1", "name": "Problem Severity", "score": 4, "weight": 0.25, "weightedContribution": 10, "reasoning": "Corporate voting inefficiencies are real but minor — most companies use adequate existing solutions (DTC, Broadridge). The problem is not acute and incumbents are 'good enough'.", "confidence": "medium" },
+      { "id": "D2", "name": "Market Opportunity", "score": 5, "weight": 0.25, "weightedContribution": 12.5, "reasoning": "Corporate governance tech market ~$2B with moderate growth (8% CAGR). Narrow initial target (public company shareholder resolutions limits TAM).", "confidence": "medium" },
+      { "id": "D3", "name": "Competitive Differentiation", "score": 3, "weight": 0.2, "weightedContribution": 6, "reasoning": "Blockchain voting is a well-explored concept with multiple failed attempts (Follow My Vote, Voatz). No clear advantage over centralized databases for corporate use case. Blockchain adds complexity without solving a trust problem corporations actually have.", "confidence": "high" },
+      { "id": "D4", "name": "Founder Capability", "score": 4, "weight": 0.15, "weightedContribution": 6, "reasoning": "Solo founder with 2 years in crypto but no corporate governance experience. No advisory board in the target industry. Technical skills present but domain expertise gap is significant.", "confidence": "medium" },
+      { "id": "D5", "name": "Execution Feasibility", "score": 4, "weight": 0.1, "weightedContribution": 4, "reasoning": "Plan is high-level and aspirational. Milestones lack specificity. Corporate sales cycle (18+ months) is not accounted for. No plan for regulatory approvals (SEC, DTCC).", "confidence": "medium" },
+      { "id": "D6", "name": "Market Timing", "score": 5, "weight": 0.05, "weightedContribution": 2.5, "reasoning": "Blockchain hype has cooled. Corporate governance innovation is steady but slow. No specific catalyst making now the right time.", "confidence": "medium" }
+    ],
+    "stageScore": 41,
+    "overallScore": 35,
+    "scoreLabel": "Developing",
+    "percentile": 25,
+    "topStrengths": [
+      { "dimension": "Market Timing", "score": 5, "explanation": "No obvious timing risk — but no special tailwind either. The market exists and is accessible." },
+      { "dimension": "Market Opportunity", "score": 5, "explanation": "Moderate TAM and reasonable growth. Clear customer segment (public companies) exists." },
+      { "dimension": "Problem Severity", "score": 4, "explanation": "Problem is real but the urgency and severity are overstated. Existing solutions are 'good enough'." }
+    ],
+    "topWeaknesses": [
+      { "dimension": "Competitive Differentiation", "score": 3, "explanation": "Multiple blockchain voting startups have failed. No evidence that blockchain solves a trust problem corporations actually have versus centralized databases.", "recommendation": "Pivot to a specific governance pain point where blockchain genuinely adds value (e.g., cross-border shareholder voting with jurisdictional trust issues) or drop the blockchain requirement entirely." },
+      { "dimension": "Founder Capability", "score": 4, "explanation": "Significant domain expertise gap in corporate governance. Solo founder without industry network.", "recommendation": "Recruit a co-founder or senior advisor with 10+ years in corporate governance, investor relations, or proxy solicitation. Their expertise will inform product direction and open doors." },
+      { "dimension": "Execution Feasibility", "score": 4, "explanation": "Plan underestimates enterprise sales cycle and regulatory hurdles (SEC, DTCC). Milestones lack specificity.", "recommendation": "Create a detailed 12-month plan accounting for 6-9 month enterprise sales cycles. Include regulatory milestones (pre-clearance with SEC, DTCC partnership discussions)." }
+    ],
+    "summary": "Developing — Your Concept-stage startup has significant gaps that need attention, especially in competitive differentiation and founder capability. Focus on addressing these fundamental issues before advancing.",
+    "modelVersion": "1.0",
+    "createdAt": "2026-06-20T14:00:00Z"
+  },
+  {
+    "id": "cloudlens-03",
+    "startupName": "CloudLens",
+    "shortDescription": "AI-powered cloud cost optimization platform that predicts and prevents overspend before it happens.",
+    "industry": "Cloud Infrastructure",
+    "category": "FinOps",
+    "tags": ["AI", "Cloud", "FinOps", "DevOps", "SaaS"],
+    "detectedStage": "prototype",
+    "selfReportedStage": "prototype",
+    "stageDiscrepancy": false,
+    "dimensionScores": [
+      { "id": "D1", "name": "Technical Quality", "score": 8, "weight": 0.25, "weightedContribution": 20, "reasoning": "Prototype reliably ingests AWS/GCP billing data and predicts cost anomalies with 92% accuracy. Core prediction engine is well-built with clean architecture and good error handling.", "confidence": "high" },
+      { "id": "D2", "name": "Product Design", "score": 6, "weight": 0.2, "weightedContribution": 12, "reasoning": "UI is functional but dense — users can accomplish core tasks but onboarding is complex. Dashboard information hierarchy needs refinement. Good integration patterns but UX is not intuitive for non-DevOps users.", "confidence": "medium" },
+      { "id": "D3", "name": "Innovation Level", "score": 7, "weight": 0.15, "weightedContribution": 10.5, "reasoning": "Predictive cost optimization (vs. reactive) is genuinely novel. Competitors (CloudHealth, Vantage) focus on reporting after the fact. ML-based anomaly prediction is a meaningful innovation.", "confidence": "high" },
+      { "id": "D4", "name": "Development Progress", "score": 7, "weight": 0.15, "weightedContribution": 10.5, "reasoning": "Core engine built in 4 months by 2 senior engineers. MVP feature set is 80% complete. Strong velocity with clear path to initial release.", "confidence": "medium" },
+      { "id": "D5", "name": "Scalability Potential", "score": 8, "weight": 0.15, "weightedContribution": 12, "reasoning": "Serverless architecture on AWS Lambda + DynamoDB. Designed for multi-cloud from day one. Good technology choices (Rust for cost engine, TypeScript for API). Infrastructure-as-code with Terraform.", "confidence": "high" },
+      { "id": "D6", "name": "Market Alignment", "score": 7, "weight": 0.1, "weightedContribution": 7, "reasoning": "Validated with 8 potential enterprise customers who confirmed pain ($2M+ monthly cloud bills with 30% waste). Positive feedback on predictive approach. Early design partners identified.", "confidence": "medium" }
+    ],
+    "stageScore": 72,
+    "overallScore": 65,
+    "scoreLabel": "Solid",
+    "percentile": 65,
+    "topStrengths": [
+      { "dimension": "Technical Quality", "score": 8, "explanation": "Prediction engine is well-built with 92% anomaly detection accuracy, clean architecture, and strong error handling." },
+      { "dimension": "Scalability Potential", "score": 8, "explanation": "Serverless, multi-cloud architecture from day one with excellent technology choices and IaC practices." },
+      { "dimension": "Innovation Level", "score": 7, "explanation": "Predictive (vs. reactive) cost optimization is genuinely novel in a market dominated by reporting tools." }
+    ],
+    "topWeaknesses": [
+      { "dimension": "Product Design", "score": 6, "explanation": "Dense, technical UI that will limit adoption beyond DevOps teams. Onboarding complexity is high.", "recommendation": "Invest in UX design: simplify the onboarding flow with a 'first insight in 60 seconds' experience. Add role-specific dashboards (CFO view, engineering lead view, DevOps view)." },
+      { "dimension": "Innovation Level", "score": 7, "explanation": "Solid innovation but incumbents (CloudHealth, Vantage) can add predictive features once they see traction.", "recommendation": "Maintain and monitor — this is a strength." },
+      { "dimension": "Development Progress", "score": 7, "explanation": "Strong velocity but MVP to GA timeline (6 months) may be optimistic given enterprise requirements (SSO, RBAC, audit logs).", "recommendation": "Maintain and monitor — this is a strength." }
+    ],
+    "summary": "Solid — Your Prototype-stage startup meets expectations with competent execution in technical quality and scalability. To strengthen your position, focus on improving product design and market alignment.",
+    "modelVersion": "1.0",
+    "createdAt": "2026-07-01T08:15:00Z"
+  },
+  {
+    "id": "farmsense-04",
+    "startupName": "FarmSense",
+    "shortDescription": "Precision agriculture platform using satellite imagery and IoT sensors to optimize irrigation, fertilizer, and pest control for smallholder farms.",
+    "industry": "AgriTech",
+    "category": "Precision Agriculture",
+    "tags": ["IoT", "Satellite", "Sustainability", "Agriculture", "Emerging Markets"],
+    "detectedStage": "prototype",
+    "selfReportedStage": "prototype",
+    "stageDiscrepancy": false,
+    "dimensionScores": [
+      { "id": "D1", "name": "Technical Quality", "score": 7, "weight": 0.25, "weightedContribution": 17.5, "reasoning": "IoT sensor mesh and satellite data pipeline work reliably in field tests. Core sensor hardware is durable and low-cost ($12/unit). Data fusion algorithm between satellite and ground sensors shows promising results.", "confidence": "medium" },
+      { "id": "D2", "name": "Product Design", "score": 8, "weight": 0.2, "weightedContribution": 16, "reasoning": "Mobile-first design tailored for farmers in emerging markets. Offline-capable, multilingual, and uses visual/icon-based UX for low-literacy users. Exceptional user-centered design process with 40+ farmer interviews.", "confidence": "high" },
+      { "id": "D3", "name": "Innovation Level", "score": 8, "weight": 0.15, "weightedContribution": 12, "reasoning": "Combines ultra-low-cost IoT ($12 sensors vs. $200+ competitors) with satellite data fusion in a way that's unprecedented for the smallholder market. Hardware cost innovation + software IP.", "confidence": "high" },
+      { "id": "D4", "name": "Development Progress", "score": 6, "weight": 0.15, "weightedContribution": 9, "reasoning": "Hardware prototypes are v2 but manufacturing pipeline is unclear. Software backend is functional but needs hardening for production. Established timeline to MVP (9 months) is realistic.", "confidence": "medium" },
+      { "id": "D5", "name": "Scalability Potential", "score": 7, "weight": 0.15, "weightedContribution": 10.5, "reasoning": "Sensor BOM cost scales well. Satellite data pipeline is cloud-native. Key scaling challenge is sensor manufacturing and field deployment logistics in rural regions.", "confidence": "medium" },
+      { "id": "D6", "name": "Market Alignment", "score": 9, "weight": 0.1, "weightedContribution": 9, "reasoning": "Exceptional market alignment validated through 40+ farmer interviews and 2 NGO partnerships. Smallholder farmers (500M globally) face acute water/crop challenges. Prototype testing showed 35% water reduction and 20% yield increase.", "confidence": "high" }
+    ],
+    "stageScore": 74,
+    "overallScore": 67,
+    "scoreLabel": "Solid",
+    "percentile": 70,
+    "topStrengths": [
+      { "dimension": "Market Alignment", "score": 9, "explanation": "Exceptional alignment — prototype testing showed 35% water reduction and 20% yield increase with real farmers. Strong NGO partnership validation." },
+      { "dimension": "Product Design", "score": 8, "explanation": "Outstanding mobile-first, low-literacy, offline-capable design built from 40+ farmer interviews. Truly user-centered." },
+      { "dimension": "Innovation Level", "score": 8, "explanation": "$12 IoT sensors + satellite data fusion is genuinely novel and opens the market to 500M smallholder farmers currently priced out." }
+    ],
+    "topWeaknesses": [
+      { "dimension": "Development Progress", "score": 6, "explanation": "Hardware manufacturing pipeline is unclear. Software backend needs production hardening before MVP release.", "recommendation": "Secure a manufacturing partner with experience in low-cost electronics at scale (Shenzhen or similar). Build a 9-month production roadmap with pilot batch of 500 units for field testing." },
+      { "dimension": "Technical Quality", "score": 7, "explanation": "Core functionality is solid but edge cases in extreme weather and connectivity-poor regions need more testing.", "recommendation": "Maintain and monitor — this is a strength. Plan extended field trials during rainy season and in remote regions." },
+      { "dimension": "Scalability Potential", "score": 7, "explanation": "Strong technical scalability but logistics of rural deployment and farmer onboarding at scale needs more thought.", "recommendation": "Maintain and monitor — this is a strength. Develop a partnership model with agricultural co-ops and NGOs for last-mile distribution." }
+    ],
+    "summary": "Solid — Your Prototype-stage startup demonstrates strong fundamentals, particularly in market alignment and product design. Your primary opportunity for improvement lies in development progress. You are well-positioned for the next stage of growth.",
+    "modelVersion": "1.0",
+    "createdAt": "2026-07-05T16:45:00Z"
+  },
+  {
+    "id": "shipfast-05",
+    "startupName": "ShipFast",
+    "shortDescription": "AI-native CI/CD platform that automatically fixes broken builds, optimizes pipelines, and generates deployment previews.",
+    "industry": "Developer Tools",
+    "category": "DevOps / CI/CD",
+    "tags": ["AI", "DevTools", "DevOps", "CI/CD", "SaaS"],
+    "detectedStage": "mvp",
+    "selfReportedStage": "mvp",
+    "stageDiscrepancy": false,
+    "dimensionScores": [
+      { "id": "D1", "name": "User Adoption", "score": 8, "weight": 0.25, "weightedContribution": 20, "reasoning": "2,800 developers on the platform, growing 18% MoM. Strong organic acquisition via developer community (Hacker News, Reddit, GitHub stars: 4.2K). Majority of users come from word-of-mouth.", "confidence": "high" },
+      { "id": "D2", "name": "Engagement Signals", "score": 8, "weight": 0.2, "weightedContribution": 16, "reasoning": "DAU/MAU ratio of 42%. Average 4.3 pipelines triggered per developer per day. AI auto-fix feature used by 78% of active users. Product is integrated into daily workflow.", "confidence": "high" },
+      { "id": "D3", "name": "Retention Indicators", "score": 6, "weight": 0.2, "weightedContribution": 12, "reasoning": "Day-1 retention at 52%, Day-30 at 22%. Acceptable but not exceptional. Churn analysis shows main drop-off comes from solo developers who try it but don't use CI/CD regularly.", "confidence": "medium" },
+      { "id": "D4", "name": "Product-Market Fit Signals", "score": 7, "weight": 0.15, "weightedContribution": 10.5, "reasoning": "Sean Ellis PMF survey score: 35% 'very disappointed' if product went away. Growing organic adoption. NPS: 48. Clear segment of passionate users (engineering teams of 3-20).", "confidence": "medium" },
+      { "id": "D5", "name": "Customer Feedback Quality", "score": 7, "weight": 0.1, "weightedContribution": 7, "reasoning": "Active GitHub issue tracker (600+ issues, 85% closed). Regular user interviews. Feature request voting board with strong participation. Sentiment is predominantly positive.", "confidence": "medium" },
+      { "id": "D6", "name": "Technical Foundation", "score": 6, "weight": 0.1, "weightedContribution": 6, "reasoning": "99.3% uptime. Pipeline execution is reliable but occasional queue delays during peak hours. Testing coverage at 62%. Some tech debt accumulating from rapid iteration.", "confidence": "medium" }
+    ],
+    "stageScore": 72,
+    "overallScore": 68,
+    "scoreLabel": "Solid",
+    "percentile": 70,
+    "topStrengths": [
+      { "dimension": "User Adoption", "score": 8, "explanation": "Strong organic growth at 18% MoM with 2,800 developers. Developer community momentum (4.2K GitHub stars) is a powerful signal." },
+      { "dimension": "Engagement Signals", "score": 8, "explanation": "Exceptional DAU/MAU ratio (42%) and feature adoption (78% use AI auto-fix). Product is deeply integrated into daily developer workflows." },
+      { "dimension": "Product-Market Fit Signals", "score": 7, "explanation": "Sean Ellis survey at 35% with clear passionate segment (engineering teams of 3-20). Strong NPS of 48." }
+    ],
+    "topWeaknesses": [
+      { "dimension": "Retention Indicators", "score": 6, "explanation": "Day-30 retention at 22% is below target. Solo developer churn is masking stronger team retention.", "recommendation": "Implement team-focused onboarding: multi-user invite flows, team dashboard, and collaborative pipeline features. Create a 'team success' trigger at 3+ seats per org." },
+      { "dimension": "Technical Foundation", "score": 6, "explanation": "Pipeline queue delays during peak hours and moderate test coverage (62%) need attention as user base grows.", "recommendation": "Prioritize queue architecture improvements and set a target of 80% test coverage. Implement automated load testing before the next growth phase." },
+      { "dimension": "Customer Feedback Quality", "score": 7, "explanation": "Strong feedback culture but GitHub-heavy process may miss non-technical decision-makers (CTOs, VPs of Engineering).", "recommendation": "Maintain and monitor — this is a strength. Supplement GitHub feedback with quarterly NPS surveys targeting team leads and decision-makers." }
+    ],
+    "summary": "Solid — Your MVP-stage startup demonstrates strong fundamentals, particularly in user adoption and engagement signals. Your primary opportunity for improvement lies in retention indicators. You are well-positioned for the next stage of growth.",
+    "modelVersion": "1.0",
+    "createdAt": "2026-07-08T11:20:00Z"
+  },
+  {
+    "id": "medmatch-06",
+    "startupName": "MedMatch",
+    "shortDescription": "AI marketplace matching patients with specialized healthcare providers based on medical history, insurance, availability, and outcomes data.",
+    "industry": "HealthTech",
+    "category": "Healthcare Marketplace",
+    "tags": ["AI", "HealthTech", "Marketplace", "Consumer"],
+    "detectedStage": "mvp",
+    "selfReportedStage": "mvp",
+    "stageDiscrepancy": false,
+    "dimensionScores": [
+      { "id": "D1", "name": "User Adoption", "score": 5, "weight": 0.25, "weightedContribution": 12.5, "reasoning": "1,200 patients and 85 providers onboarded in 3 months. Growth is slow (4% MoM). Heavy reliance on paid acquisition ($22 CAC). Mostly in one metro area (Austin).", "confidence": "high" },
+      { "id": "D2", "name": "Engagement Signals", "score": 4, "weight": 0.2, "weightedContribution": 8, "reasoning": "DAU/MAU at 8%. Average patient searches 1.2 times per month. Provider side is under-engaged — only 22% log in weekly. Core matching action is completed but engagement depth is low.", "confidence": "medium" },
+      { "id": "D3", "name": "Retention Indicators", "score": 5, "weight": 0.2, "weightedContribution": 10, "reasoning": "Day-1 retention at 35%, Day-30 at 14%. Patients return when they need a new provider (3-6 month cycles) but platform is not top-of-mind between searches. Matching marketplaces naturally have lower frequency — acceptable for the model.", "confidence": "medium" },
+      { "id": "D4", "name": "Product-Market Fit Signals", "score": 5, "weight": 0.15, "weightedContribution": 7.5, "reasoning": "Mixed PMF signals. Patients who find a provider are very satisfied (4.6/5 rating) but the 'time to match' is too long (average 5 days). NPS: 22. PMF survey score: 22% 'very disappointed'.", "confidence": "medium" },
+      { "id": "D5", "name": "Customer Feedback Quality", "score": 6, "weight": 0.1, "weightedContribution": 6, "reasoning": "Regular patient NPS surveys (200+ responses). Provider interviews conducted monthly. Key feedback: patients want faster matches, providers want better-qualified leads.", "confidence": "medium" },
+      { "id": "D6", "name": "Technical Foundation", "score": 7, "weight": 0.1, "weightedContribution": 7, "reasoning": "Stable platform at 99.7% uptime. HIPAA-compliant infrastructure with BAA in place. Matching algorithm is functional but accuracy needs improvement. Good security posture.", "confidence": "high" }
+    ],
+    "stageScore": 51,
+    "overallScore": 48,
+    "scoreLabel": "Developing",
+    "percentile": 40,
+    "topStrengths": [
+      { "dimension": "Technical Foundation", "score": 7, "explanation": "HIPAA-compliant infrastructure with strong security posture and 99.7% uptime. Regulatory foundation is solid for healthcare." },
+      { "dimension": "Customer Feedback Quality", "score": 6, "explanation": "Regular patient and provider feedback loops are established with 200+ NPS responses. Feedback is being used to iterate." },
+      { "dimension": "User Adoption", "score": 5, "explanation": "1,200 patients and 85 providers in 3 months shows initial traction, though growth rate needs acceleration." }
+    ],
+    "topWeaknesses": [
+      { "dimension": "Engagement Signals", "score": 4, "explanation": "Very low DAU/MAU (8%) and infrequent usage. Provider-side engagement is critically low at 22% weekly login rate.", "recommendation": "Implement provider-side notifications for new patient matches (push + email). Add a 'provider dashboard' with lead quality metrics. Create patient re-engagement flows: follow-up reminders, annual checkup prompts, and specialist recommendations." },
+      { "dimension": "Retention Indicators", "score": 5, "explanation": "Day-30 retention at 14% is below acceptable. Long gaps between use cases mean the platform is forgotten.", "recommendation": "Add ongoing value features: health record storage, appointment reminders, preventive care recommendations. Keep patients on the platform even when they're not actively searching." },
+      { "dimension": "Product-Market Fit Signals", "score": 5, "explanation": "Long 'time to match' (5 days) undermines the core value proposition. Mixed PMF survey results.", "recommendation": "Focus on reducing 'time to match': implement provider availability calendars, instant booking for top matches, and a 'fast-track' option. Target <24 hour match time as a key KPI." }
+    ],
+    "summary": "Developing — Your MVP-stage startup meets expectations with competent execution in technical foundation. To strengthen your position, focus on improving engagement signals and product-market fit signals.",
+    "modelVersion": "1.0",
+    "createdAt": "2026-07-10T09:00:00Z"
+  },
+  {
+    "id": "payflow-07",
+    "startupName": "PayFlow",
+    "shortDescription": "B2B payment automation platform using AI to optimize payment routing, reduce fees, and automate accounts payable workflows.",
+    "industry": "FinTech",
+    "category": "B2B Payments",
+    "tags": ["AI", "FinTech", "B2B", "Automation", "SaaS"],
+    "detectedStage": "mvp",
+    "selfReportedStage": "mvp",
+    "stageDiscrepancy": false,
+    "dimensionScores": [
+      { "id": "D1", "name": "User Adoption", "score": 7, "weight": 0.25, "weightedContribution": 17.5, "reasoning": "6,500 businesses onboarded, processing $12M in monthly payment volume. Growing 15% MoM. Strong product-led growth with freemium-to-paid conversion at 8%.", "confidence": "high" },
+      { "id": "D2", "name": "Engagement Signals", "score": 7, "weight": 0.2, "weightedContribution": 14, "reasoning": "DAU/MAU at 28% (daily for finance teams). Average 45 payments processed per business per month. AP workflow automation is integrated into daily operations. Core action completion rate: 92%.", "confidence": "medium" },
+      { "id": "D3", "name": "Retention Indicators", "score": 6, "weight": 0.2, "weightedContribution": 12, "reasoning": "Day-1 retention at 58%, Day-30 at 28%. Businesses that process their first payment within 3 days retain at 65% (vs. 35% for slower starters). Key onboarding milestone identified.", "confidence": "medium" },
+      { "id": "D4", "name": "Product-Market Fit Signals", "score": 7, "weight": 0.15, "weightedContribution": 10.5, "reasoning": "Sean Ellis score: 32% 'very disappointed'. Freemium-to-paid conversion at 8% is strong. NPS: 52. Clear evidence of PMF in SMB (<50 employees) segment. Mid-market PMF is emerging.", "confidence": "medium" },
+      { "id": "D5", "name": "Customer Feedback Quality", "score": 7, "weight": 0.1, "weightedContribution": 7, "reasoning": "Active feedback loop with in-app surveys (25% response rate), monthly customer advisory board. Feature requests are well-organized and voted on. Strong sentiment with clear themes: more integrations, better reporting.", "confidence": "medium" },
+      { "id": "D6", "name": "Technical Foundation", "score": 8, "weight": 0.1, "weightedContribution": 8, "reasoning": "99.95% uptime. SOC 2 Type II certified. Payment processing latency under 200ms. Comprehensive testing (78% coverage). PCI-DSS Level 1 compliant. Strong engineering with minimal tech debt.", "confidence": "high" }
+    ],
+    "stageScore": 69,
+    "overallScore": 66,
+    "scoreLabel": "Solid",
+    "percentile": 65,
+    "topStrengths": [
+      { "dimension": "Technical Foundation", "score": 8, "explanation": "Exceptional infrastructure: 99.95% uptime, SOC 2 Type II, PCI-DSS Level 1. Payment latency under 200ms. Production-grade with strong compliance." },
+      { "dimension": "User Adoption", "score": 7, "explanation": "6,500 businesses and $12M monthly volume with strong 15% MoM growth. Freemium model is working at 8% conversion." },
+      { "dimension": "Engagement Signals", "score": 7, "explanation": "Strong integration into daily finance workflows with 92% core action completion rate and 28% DAU/MAU." }
+    ],
+    "topWeaknesses": [
+      { "dimension": "Retention Indicators", "score": 6, "explanation": "Day-30 retention at 28% is acceptable but not strong. Key dependency on fast time-to-first-payment.", "recommendation": "Optimize onboarding for first-payment-within-3-days (currently the strongest retention predictor). Implement guided setup wizard with pre-filled bank verification and a 'first payment in 5 minutes' flow." },
+      { "dimension": "Product-Market Fit Signals", "score": 7, "explanation": "Strong in SMB but mid-market PMF is unproven. This limits expansion into higher-value contracts.", "recommendation": "Maintain and monitor — this is a strength. Run a mid-market pilot program with 20 companies (50-500 employees) to validate PMF in that segment before investing heavily." },
+      { "dimension": "Engagement Signals", "score": 7, "explanation": "Good engagement but monthly payment frequency may limit DAU/MAU ceiling for this category.", "recommendation": "Maintain and monitor — this is a strength. Add daily-value features (spend analytics, cash flow dashboard) to increase login frequency beyond payment processing days." }
+    ],
+    "summary": "Solid — Your MVP-stage startup demonstrates strong fundamentals, particularly in technical foundation and user adoption. Your primary opportunity for improvement lies in retention indicators. You are well-positioned for the next stage of growth.",
+    "modelVersion": "1.0",
+    "createdAt": "2026-07-12T14:30:00Z"
+  },
+  {
+    "id": "dataweave-08",
+    "startupName": "DataWeave",
+    "shortDescription": "No-code data integration platform unifying siloed enterprise data sources for real-time analytics and AI readiness.",
+    "industry": "Data Infrastructure",
+    "category": "Data Integration / ETL",
+    "tags": ["Data", "Enterprise", "No-Code", "AI", "SaaS"],
+    "detectedStage": "revenue",
+    "selfReportedStage": "revenue",
+    "stageDiscrepancy": false,
+    "dimensionScores": [
+      { "id": "D1", "name": "Revenue Quality", "score": 7, "weight": 0.25, "weightedContribution": 17.5, "reasoning": "$48K MRR, 90% subscription recurring. Top customer concentration at 12% (healthy diversification). Gross margins at 78%. Revenue is predictable with annual contracts and 92% forward visibility.", "confidence": "high" },
+      { "id": "D2", "name": "Growth Rate", "score": 7, "weight": 0.25, "weightedContribution": 17.5, "reasoning": "MoM growth at 8% (consistent for 6 months). YoY growth at 140%. Growth is steady, not accelerating but reliable. At $48K MRR scale, 8% MoM is solid.", "confidence": "high" },
+      { "id": "D3", "name": "Customer Acquisition Efficiency", "score": 6, "weight": 0.15, "weightedContribution": 9, "reasoning": "Blended CAC at $4,200 with LTV:CAC of 2.8:1. CAC payback at 14 months. Acceptable but not exceptional. Content marketing is the most efficient channel; paid ads are below threshold.", "confidence": "medium" },
+      { "id": "D4", "name": "Retention & Churn", "score": 7, "weight": 0.15, "weightedContribution": 10.5, "reasoning": "Monthly logo churn at 1.8%. Revenue churn at 1.2%. NRR at 108% (positive net expansion from seat upgrades and add-on connectors). Strong retention with healthy expansion.", "confidence": "high" },
+      { "id": "D5", "name": "Profitability Path", "score": 5, "weight": 0.1, "weightedContribution": 5, "reasoning": "Current burn rate: $35K/month. Runway: 14 months. Unit economics are positive on a contribution margin basis (65%) but not yet covering fixed costs. Path to breakeven: 18 months at current growth rate.", "confidence": "medium" },
+      { "id": "D6", "name": "Market Position & Moat", "score": 7, "weight": 0.1, "weightedContribution": 7, "reasoning": "Growing data connector library (150+ connectors) creates a switching-cost moat. Positioned in the no-code data integration space with strong mid-market traction. Competitors (Fivetran, Airbyte) are well-funded but target different segments.", "confidence": "medium" }
+    ],
+    "stageScore": 67,
+    "overallScore": 67,
+    "scoreLabel": "Solid",
+    "percentile": 62,
+    "topStrengths": [
+      { "dimension": "Revenue Quality", "score": 7, "explanation": "Strong subscription recurring revenue at 90% with healthy customer diversification and 78% gross margins. Predictable with annual contracts." },
+      { "dimension": "Growth Rate", "score": 7, "explanation": "Consistent 8% MoM growth over 6 months with 140% YoY. At $48K MRR, steady growth is more valuable than erratic spikes." },
+      { "dimension": "Retention & Churn", "score": 7, "explanation": "Low churn (1.8% logo, 1.2% revenue) with positive NRR at 108%. Healthy expansion from seat upgrades and connector add-ons." }
+    ],
+    "topWeaknesses": [
+      { "dimension": "Profitability Path", "score": 5, "explanation": "18-month breakeven timeline with 14-month runway leaves little margin for error. Burn rate needs to decrease or growth needs to accelerate.", "recommendation": "Focus on improving LTV:CAC to 4:1+ by optimizing content marketing channel (current best performer) and reducing paid spend. Target reducing CAC to $3,200 within 6 months. Consider a bridge round at month 12 if breakeven timeline slips." },
+      { "dimension": "Customer Acquisition Efficiency", "score": 6, "explanation": "LTV:CAC at 2.8:1 with 14-month payback is acceptable but not efficient enough for venture scale.", "recommendation": "Double down on content marketing (current best CAC channel). Build a self-serve inbound funnel around data integration guides and connector templates. Shift budget from paid ads to SEO/content." },
+      { "dimension": "Market Position & Moat", "score": 7, "explanation": "Connector library is a growing moat, but Fivetran/Airbyte can replicate with more resources.", "recommendation": "Maintain and monitor — this is a strength. Defend by building unique connectors that integrate with niche enterprise systems your competitors ignore (ERP, legacy systems)." }
+    ],
+    "summary": "Solid — Your Revenue-Generating-stage startup meets expectations with competent execution in revenue quality and growth rate. To strengthen your position, focus on improving profitability path and customer acquisition efficiency.",
+    "modelVersion": "1.0",
+    "createdAt": "2026-07-15T13:00:00Z"
+  },
+  {
+    "id": "scalepro-09",
+    "startupName": "ScalePro",
+    "shortDescription": "AI sales enablement platform that generates personalized outreach, analyzes call recordings, and automates CRM workflows for B2B sales teams.",
+    "industry": "Sales Tech",
+    "category": "Sales Enablement AI",
+    "tags": ["AI", "Sales", "B2B", "SaaS", "Automation"],
+    "detectedStage": "revenue",
+    "selfReportedStage": "revenue",
+    "stageDiscrepancy": false,
+    "dimensionScores": [
+      { "id": "D1", "name": "Revenue Quality", "score": 9, "weight": 0.25, "weightedContribution": 22.5, "reasoning": "$320K MRR, 98% subscription recurring. Enterprise-heavy customer base (75% mid-market/enterprise). Top customer concentration at 6%. 85% gross margins are best-in-class. Annual contracts with 96% forward visibility.", "confidence": "high" },
+      { "id": "D2", "name": "Growth Rate", "score": 9, "weight": 0.25, "weightedContribution": 22.5, "reasoning": "MoM growth at 12% (accelerating from 8% six months ago). YoY growth at 220%. At $320K MRR scale, sustaining 12% MoM is exceptional. Growth is accelerating, not decelerating.", "confidence": "high" },
+      { "id": "D3", "name": "Customer Acquisition Efficiency", "score": 8, "weight": 0.15, "weightedContribution": 12, "reasoning": "Blended CAC at $8,500 with LTV:CAC of 6.2:1. CAC payback at 5 months. Multiple efficient channels (content SEO, sales-led outbound, partner referrals). Efficiency is improving quarter-over-quarter.", "confidence": "high" },
+      { "id": "D4", "name": "Retention & Churn", "score": 9, "weight": 0.15, "weightedContribution": 13.5, "reasoning": "Monthly logo churn at 0.7%. Revenue churn at 0.3%. NRR at 132% — exceptional net expansion from seat expansion, module upsells, and usage-based overages. Negative revenue churn (expansion > contraction).", "confidence": "high" },
+      { "id": "D5", "name": "Profitability Path", "score": 7, "weight": 0.1, "weightedContribution": 7, "reasoning": "Burn rate: $180K/month. Runway: 22 months (recent $8M Series A). Contribution margin at 72%. Path to breakeven: 8 months if growth continues. Profitability is not urgent given strong growth and runway.", "confidence": "medium" },
+      { "id": "D6", "name": "Market Position & Moat", "score": 8, "weight": 0.1, "weightedContribution": 8, "reasoning": "Data network effects from analyzing millions of sales calls create an AI accuracy moat. 200+ enterprise customers with deep CRM integrations create switching costs. Growing brand in the AI sales space with strong G2 reviews (4.7/5).", "confidence": "high" }
+    ],
+    "stageScore": 86,
+    "overallScore": 86,
+    "scoreLabel": "Exceptional",
+    "percentile": 94,
+    "topStrengths": [
+      { "dimension": "Revenue Quality", "score": 9, "explanation": "Near-perfect revenue profile: 98% subscription, low concentration (6%), 85% gross margins, and 96% forward visibility with annual contracts." },
+      { "dimension": "Growth Rate", "score": 9, "explanation": "Exceptional growth at 12% MoM (accelerating) and 220% YoY at $320K MRR scale. This is venture-scale traction." },
+      { "dimension": "Retention & Churn", "score": 9, "explanation": "World-class retention: 0.7% logo churn and 132% NRR. Customers expand significantly after initial sale." }
+    ],
+    "topWeaknesses": [
+      { "dimension": "Profitability Path", "score": 7, "explanation": "Strong unit economics but currently burning $180K/month. At this growth rate, market will tolerate burn — but the path to profitability should be documented.", "recommendation": "Maintain and monitor — this is a strength. Build a 'profitability on/off' model: show how quickly you could reach breakeven if you needed to by reducing growth spend." },
+      { "dimension": "Customer Acquisition Efficiency", "score": 8, "explanation": "Excellent LTV:CAC at 6.2:1 and efficient channels, but sales-led model may face headwinds in a downturn.", "recommendation": "Maintain and monitor — this is a strength. Invest in building a stronger product-led growth (PLG) funnel as a hedge against sales-led model risk." },
+      { "dimension": "Market Position & Moat", "score": 8, "explanation": "Strong moat from data network effects and CRM integrations, but AI sales space is highly competitive (Gong, Outreach, Salesloft).", "recommendation": "Maintain and monitor — this is a strength. Defend by deepening CRM integrations (becoming the 'recording of record') and expanding the AI training data advantage." }
+    ],
+    "summary": "Exceptional — Your Revenue-Generating-stage startup demonstrates outstanding fundamentals across all dimensions, particularly in revenue quality, growth rate, and retention. Continue executing — you are on a strong venture-scale trajectory.",
+    "modelVersion": "1.0",
+    "createdAt": "2026-07-16T10:00:00Z"
+  },
+  {
+    "id": "securegrid-10",
+    "startupName": "SecureGrid",
+    "shortDescription": "AI-native cloud security platform providing real-time threat detection, automated remediation, and compliance automation for multi-cloud enterprises.",
+    "industry": "Cybersecurity",
+    "category": "Cloud Security",
+    "tags": ["AI", "Cybersecurity", "Cloud", "Enterprise", "SaaS"],
+    "detectedStage": "acquisition-ready",
+    "selfReportedStage": "acquisition-ready",
+    "stageDiscrepancy": false,
+    "dimensionScores": [
+      { "id": "D1", "name": "Strategic Acquisition Value", "score": 9, "weight": 0.3, "weightedContribution": 27, "reasoning": "Highly strategic for multiple acquirers: CrowdStrike, Palo Alto Networks, Wiz, and Microsoft all need cloud security AI. Cloud security M&A is at record levels ($32B in 2024). SecureGrid fills a clear gap in AI-native detection that incumbents lack. Likely to trigger competitive bidding.", "confidence": "high" },
+      { "id": "D2", "name": "IP & Technology Quality", "score": 8, "weight": 0.2, "weightedContribution": 16, "reasoning": "4 granted patents on AI threat detection models. Proprietary behavioral analysis engine trained on 2.3B security events. Technology is difficult to replicate (<3 years to build comparable model). Strong IP moat.", "confidence": "high" },
+      { "id": "D3", "name": "Customer Base Quality", "score": 8, "weight": 0.15, "weightedContribution": 12, "reasoning": "120 enterprise customers including 4 Fortune 500 logos. Multi-year contracts (average 2.4 years). NRR at 125%. Blue-chip logos: 2 major banks, 1 airline, 1 federal agency. Strong enterprise validation.", "confidence": "high" },
+      { "id": "D4", "name": "Revenue Quality & Predictability", "score": 9, "weight": 0.15, "weightedContribution": 13.5, "reasoning": "$4.8M ARR, 100% subscription recurring. Multi-year contracts with 98% gross retention. 18+ month forward revenue visibility. Revenue is highly predictable with minimal concentration risk.", "confidence": "high" },
+      { "id": "D5", "name": "Technology Assets", "score": 7, "weight": 0.1, "weightedContribution": 7, "reasoning": "Clean codebase with strong documentation. 22-person engineering team with distributed knowledge. SOC 2 Type II + FedRAMP in progress. Minor key-person risk on head of AI. Mature CI/CD and infrastructure.", "confidence": "medium" },
+      { "id": "D6", "name": "Acquisition Suitability", "score": 8, "weight": 0.1, "weightedContribution": 8, "reasoning": "Clean cap table (founders 45%, VCs 45%, employees 10%). All IP assigned to company with strong assignment agreements. Data room is organized and M&A-ready. Experienced M&A counsel (Cooley) engaged. Minor compliance note: FedRAMP authorization is in progress but not yet complete.", "confidence": "high" }
+    ],
+    "stageScore": 83,
+    "overallScore": 87,
+    "scoreLabel": "Exceptional",
+    "percentile": 92,
+    "topStrengths": [
+      { "dimension": "Strategic Acquisition Value", "score": 9, "explanation": "Highly strategic for multiple top-tier acquirers in a consolidating $32B+ cloud security M&A market. Likely to trigger competitive bidding." },
+      { "dimension": "Revenue Quality & Predictability", "score": 9, "explanation": "100% subscription with multi-year contracts and 18+ month forward visibility. $4.8M ARR with exceptional predictability." },
+      { "dimension": "IP & Technology Quality", "score": 8, "explanation": "4 granted patents and proprietary AI engine trained on 2.3B events. Strong IP moat with 3+ year replication barrier." }
+    ],
+    "topWeaknesses": [
+      { "dimension": "Technology Assets", "score": 7, "explanation": "Key-person risk on head of AI. FedRAMP authorization is still in progress, which may affect government acquirer valuation.", "recommendation": "Document the head of AI's knowledge comprehensively and build redundancy (internal training, documentation). Prioritize FedRAMP authorization as it directly impacts acquisition valuation by government-focused acquirers." },
+      { "dimension": "Customer Base Quality", "score": 8, "explanation": "Strong enterprise logos but 120 customers is a modest base for an acquisition-ready company. Broader base would strengthen the position.", "recommendation": "Maintain and monitor — this is a strength. Continue enterprise pipeline acceleration. A target of 200+ customers strengthens acquisition leverage significantly." },
+      { "dimension": "Acquisition Suitability", "score": 8, "explanation": "Well-prepared for acquisition with clean cap table and M&A counsel. Minor compliance gaps are being addressed.", "recommendation": "Maintain and monitor — this is a strength. Complete FedRAMP authorization and prepare a comprehensive data room with technical due diligence materials (code quality reports, security audits, architecture documentation)." }
+    ],
+    "summary": "Exceptional — Your Acquisition-Ready-stage startup demonstrates outstanding fundamentals across all dimensions, particularly in strategic acquisition value and revenue quality. You are well-positioned to attract competitive acquisition interest from top-tier strategic acquirers.",
+    "modelVersion": "1.0",
+    "createdAt": "2026-07-17T15:00:00Z"
+  }
+]

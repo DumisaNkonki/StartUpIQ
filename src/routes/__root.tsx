@@ -1,5 +1,6 @@
 import {
   HeadContent,
+  Link,
   Outlet,
   Scripts,
   createRootRoute,
@@ -52,8 +53,47 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
+      <SiteNav />
       <Outlet />
     </RootDocument>
+  );
+}
+
+function SiteNav() {
+  return (
+    <nav className="sticky top-0 z-50 w-full border-b border-gray-800/60 bg-gray-950/80 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+        <Link to="/" className="flex items-center gap-2">
+          <span className="text-lg font-bold tracking-tight">
+            <span className="text-indigo-400">Startup</span>
+            <span className="text-white">IQ</span>
+          </span>
+        </Link>
+        <div className="flex items-center gap-6 text-sm text-gray-400">
+          <Link to="/" className="hover:text-white transition-colors [&.active]:text-white">
+            Home
+          </Link>
+          <Link
+            to="/marketplace"
+            className="hover:text-white transition-colors [&.active]:text-white"
+          >
+            Marketplace
+          </Link>
+          <a href="/#how-it-works" className="hover:text-white transition-colors">
+            How It Works
+          </a>
+          <a href="/#pricing" className="hover:text-white transition-colors">
+            Pricing
+          </a>
+          <a
+            href="/#submit"
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500 transition-colors"
+          >
+            Evaluate Your Startup
+          </a>
+        </div>
+      </div>
+    </nav>
   );
 }
 
