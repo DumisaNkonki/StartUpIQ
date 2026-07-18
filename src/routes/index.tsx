@@ -242,8 +242,86 @@ function HowItWorks() {
   );
 }
 
+function PricingTierCard({
+  name,
+  price,
+  period,
+  description,
+  features,
+  cta,
+  href,
+  highlighted,
+}: {
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  features: string[];
+  cta: string;
+  href: string;
+  highlighted: boolean;
+}) {
+  return (
+    <div
+      className={`relative rounded-2xl border p-8 flex flex-col ${
+        highlighted
+          ? "border-indigo-500/50 bg-indigo-500/5 ring-1 ring-indigo-500/20"
+          : "border-gray-800 bg-gray-900/30"
+      }`}
+    >
+      {highlighted && (
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-indigo-600 px-4 py-1 text-xs font-semibold text-white">
+          Most Popular
+        </span>
+      )}
+      <div className="mb-6">
+        <h3 className="text-xl font-bold">{name}</h3>
+        <div className="mt-3 flex items-baseline gap-1">
+          <span className="text-4xl font-extrabold">{price}</span>
+          <span className="text-gray-500 text-sm">{period}</span>
+        </div>
+        <p className="mt-3 text-sm text-gray-400">{description}</p>
+      </div>
+
+      <ul className="mb-8 flex-1 space-y-3">
+        {features.map((feature) => (
+          <li key={feature} className="flex items-start gap-3 text-sm">
+            <svg
+              className={`mt-0.5 h-4 w-4 flex-shrink-0 ${
+                highlighted ? "text-indigo-400" : "text-teal-400"
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <span className="text-gray-300">{feature}</span>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        href={href}
+        className={`block rounded-xl px-6 py-3 text-center text-sm font-semibold transition-all ${
+          highlighted
+            ? "bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-600/25"
+            : "border border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white"
+        }`}
+      >
+        {cta}
+      </a>
+    </div>
+  );
+}
+
 function Pricing() {
-  const tiers = [
+  const founderTiers = [
     {
       name: "Free",
       price: "$0",
@@ -252,46 +330,103 @@ function Pricing() {
       features: [
         "Basic evaluation & score",
         "Strengths & weaknesses analysis",
-        "Stage assessment",
-        "Public profile listing",
+        "Improvement recommendations",
+        "Public or private profile",
       ],
       cta: "Get Started Free",
       href: "#submit",
       highlighted: false,
     },
     {
-      name: "Professional",
-      price: "$299",
+      name: "Founder Intelligence Report",
+      price: "$99",
       period: "one-time",
-      description:
-        "Deep intelligence for founders preparing to raise or sell.",
+      description: "Deep intelligence for founders building and iterating.",
       features: [
-        "Deep intelligence report",
-        "Investor readiness score",
-        "Acquisition potential score",
-        "Technical analysis",
-        "Strategic roadmap",
-        "Market positioning analysis",
-        "Competitive landscape",
+        "Full evaluation & scoring",
+        "Problem/solution analysis",
+        "TAM/SAM/SOM analysis",
+        "Competitor intelligence",
+        "Target customer analysis",
+        "Revenue model evaluation",
+        "Pricing strategy",
+        "MVP feature prioritization",
+        "90-day execution roadmap",
       ],
-      cta: "Get Professional Report",
+      cta: "Get Founder Report",
+      href: "#submit",
+      highlighted: true,
+    },
+    {
+      name: "Investor-Ready Assessment",
+      price: "$499",
+      period: "one-time",
+      description: "Everything you need to raise capital or attract acquirers.",
+      features: [
+        "Everything in Founder Report",
+        "Investor readiness score",
+        "Acquisition attractiveness score",
+        "Technical capability assessment",
+        "Code/repo evaluation",
+        "Financial model analysis",
+        "Growth potential analysis",
+        "Risk analysis",
+        "Pitch improvement",
+        "Due diligence preparation",
+      ],
+      cta: "Get Investor-Ready",
+      href: "#submit",
+      highlighted: false,
+    },
+  ];
+
+  const investorTiers = [
+    {
+      name: "Explorer",
+      price: "$99",
+      period: "/month",
+      description: "Discover and track startup opportunities as they emerge.",
+      features: [
+        "Browse startup database",
+        "Search by category, industry, tech, location, stage",
+        "View intelligence summaries",
+        "Save opportunities",
+        "Receive alerts",
+        "Request founder introductions",
+      ],
+      cta: "Start Exploring",
+      href: "#submit",
+      highlighted: false,
+    },
+    {
+      name: "Professional",
+      price: "$499",
+      period: "/month",
+      description: "Full access with AI-powered matching and deep intelligence.",
+      features: [
+        "Full database access",
+        "Advanced filters",
+        "AI-powered matching",
+        "Detailed intelligence reports",
+        "Technical & market intelligence",
+        "Pipeline management",
+      ],
+      cta: "Go Professional",
       href: "#submit",
       highlighted: true,
     },
     {
       name: "Enterprise",
-      price: "$2,500+",
-      period: "custom",
-      description:
-        "Full due diligence for serious transactions and acquisitions.",
+      price: "$5,000",
+      period: "/month",
+      description: "Custom discovery and dedicated support for serious deal flow.",
       features: [
-        "Full due diligence package",
-        "Custom analysis & deep dives",
-        "Acquisition preparation",
-        "Ongoing advisory support",
-        "Private investor matching",
-        "Term sheet review",
-        "Priority concierge support",
+        "Multi-team access",
+        "Custom discovery criteria",
+        "Acquisition targeting",
+        "Industry reports",
+        "API access",
+        "Dedicated support",
       ],
       cta: "Contact Sales",
       href: "#submit",
@@ -302,6 +437,7 @@ function Pricing() {
   return (
     <section id="pricing" className="relative py-24 px-6">
       <div className="mx-auto max-w-6xl">
+        {/* Header */}
         <div className="mb-16 text-center">
           <span className="mb-4 inline-block rounded-full bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-400">
             Pricing
@@ -310,69 +446,44 @@ function Pricing() {
             Intelligence for every stage
           </h2>
           <p className="mt-4 text-gray-400">
-            From a free first look to full enterprise due diligence.
+            From a free first look to full enterprise deal flow.
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-3">
-          {tiers.map((tier) => (
-            <div
-              key={tier.name}
-              className={`relative rounded-2xl border p-8 flex flex-col ${
-                tier.highlighted
-                  ? "border-indigo-500/50 bg-indigo-500/5 ring-1 ring-indigo-500/20"
-                  : "border-gray-800 bg-gray-900/30"
-              }`}
-            >
-              {tier.highlighted && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-indigo-600 px-4 py-1 text-xs font-semibold text-white">
-                  Most Popular
-                </span>
-              )}
-              <div className="mb-6">
-                <h3 className="text-xl font-bold">{tier.name}</h3>
-                <div className="mt-3 flex items-baseline gap-1">
-                  <span className="text-4xl font-extrabold">{tier.price}</span>
-                  <span className="text-gray-500 text-sm">/{tier.period}</span>
-                </div>
-                <p className="mt-3 text-sm text-gray-400">{tier.description}</p>
-              </div>
+        {/* Section 1: For Founders */}
+        <div className="mb-20">
+          <div className="mb-8">
+            <span className="mb-2 inline-block rounded-full bg-teal-500/10 px-3 py-1 text-xs font-medium text-teal-400">
+              For Founders
+            </span>
+            <h3 className="text-2xl font-bold tracking-tight">One-Time Reports</h3>
+            <p className="mt-1 text-sm text-gray-400">
+              Objective intelligence to build, improve, and fundraise.
+            </p>
+          </div>
+          <div className="grid gap-8 lg:grid-cols-3">
+            {founderTiers.map((tier) => (
+              <PricingTierCard key={tier.name} {...tier} />
+            ))}
+          </div>
+        </div>
 
-              <ul className="mb-8 flex-1 space-y-3">
-                {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-sm">
-                    <svg
-                      className={`mt-0.5 h-4 w-4 flex-shrink-0 ${
-                        tier.highlighted ? "text-indigo-400" : "text-teal-400"
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span className="text-gray-300">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href={tier.href}
-                className={`block rounded-xl px-6 py-3 text-center text-sm font-semibold transition-all ${
-                  tier.highlighted
-                    ? "bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-600/25"
-                    : "border border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white"
-                }`}
-              >
-                {tier.cta}
-              </a>
-            </div>
-          ))}
+        {/* Section 2: For Investors & Acquirers */}
+        <div>
+          <div className="mb-8">
+            <span className="mb-2 inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-400">
+              For Investors & Acquirers
+            </span>
+            <h3 className="text-2xl font-bold tracking-tight">Monthly Subscriptions</h3>
+            <p className="mt-1 text-sm text-gray-400">
+              Discover, evaluate, and close deals with AI-powered intelligence.
+            </p>
+          </div>
+          <div className="grid gap-8 lg:grid-cols-3">
+            {investorTiers.map((tier) => (
+              <PricingTierCard key={tier.name} {...tier} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
