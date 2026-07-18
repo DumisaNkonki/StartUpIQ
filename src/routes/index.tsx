@@ -1,940 +1,675 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import type { FormEvent } from "react";
-import type { Stage, EvaluationResult } from "~/lib/stages";
-import { STAGE_LABELS } from "~/lib/stages";
 
-// Import the evaluate server function from the API route
-import { evaluate } from "~/routes/api/-evaluate";
+// ---- Server function for form submissions ----
+const submitEvaluation = createServerFn({ method: "POST" })
+  .validator(
+    (data: unknown) => data as {
+      startupName: string;
+      stage: string;
+      description: string;
+      url: string;
+      email: string;
+    }
+  )
+  .handler(async ({ data }) => {
+    // Log the submission (replace with DB write when database is connected)
+    console.log("=== StartupIQ Evaluation Submission ===");
+    console.log("Startup Name:", data.startupName);
+    console.log("Stage:", data.stage);
+    console.log("Description:", data.description);
+    console.log("URL:", data.url);
+    console.log("Email:", data.email);
+    console.log("Submitted at:", new Date().toISOString());
+    console.log("========================================");
+
+    return { success: true };
+  });
 
 export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const stageOptions: { value: Stage; label: string }[] = [
-  { value: "concept", label: "Concept — Idea stage, no product yet" },
-  { value: "prototype", label: "Prototype — Working demo, no users" },
-  { value: "mvp", label: "MVP — Live product with real users" },
-  { value: "revenue", label: "Revenue-Generating — Making money" },
-  { value: "acquisition-ready", label: "Acquisition-Ready — Strategic exit potential" },
-];
+// ---- Section Components ----
 
-function Home() {
-  const navigate = useNavigate();
-  const [stage, setStage] = useState<Stage | "">("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [hasRevenue, setHasRevenue] = useState(false);
-  const [hasMVP, setHasMVP] = useState(false);
+function NavBar() {
+  return (
+    <nav className="fixed top-0 z-50 w-full border-b border-gray-800/60 bg-gray-950/80 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <a href="#" className="flex items-center gap-2">
+          <span className="text-xl font-bold tracking-tight">
+            <span className="text-indigo-400">Startup</span>
+            <span className="text-white">IQ</span>
+          </span>
+        </a>
+        <div className="flex items-center gap-6 text-sm text-gray-400">
+          <a href="#how-it-works" className="hover:text-white transition-colors">
+            How It Works
+          </a>
+          <a href="#pricing" className="hover:text-white transition-colors">
+            Pricing
+          </a>
+          <a
+            href="#submit"
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500 transition-colors"
+          >
+            Evaluate Your Startup
+          </a>
+        </div>
+      </div>
+    </nav>
+  );
+}
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+function Hero() {
+  return (
+    <section className="relative flex min-h-dvh items-center justify-center overflow-hidden px-6 pt-20">
+      {/* Background glow */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-indigo-600/20 blur-[120px]" />
+        <div className="absolute top-2/3 left-1/3 h-[400px] w-[400px] rounded-full bg-teal-500/10 blur-[100px]" />
+      </div>
+
+      <div className="relative mx-auto max-w-4xl text-center">
+        <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-300">
+          <span className="h-2 w-2 rounded-full bg-indigo-400 animate-pulse" />
+          AI-Powered Startup Intelligence
+        </span>
+
+        <h1 className="mb-6 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          The AI Intelligence Platform for{" "}
+          <span className="bg-gradient-to-r from-indigo-400 via-teal-400 to-indigo-400 bg-clip-text text-transparent">
+            Evaluating, Discovering, and Connecting
+          </span>{" "}
+          the World's Startups.
+        </h1>
+
+        <p className="mx-auto mb-10 max-w-2xl text-lg text-gray-400 sm:text-xl">
+          Get an objective, AI-powered evaluation of your startup — from concept
+          to acquisition-ready — and connect with investors, acquirers, and
+          partners.
+        </p>
+
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <a
+            href="#submit"
+            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-indigo-600/30 hover:bg-indigo-500 transition-all"
+          >
+            Evaluate Your Startup Free
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </svg>
+          </a>
+          <a
+            href="#how-it-works"
+            className="inline-flex items-center gap-2 rounded-xl border border-gray-700 px-8 py-4 text-lg font-semibold text-gray-300 hover:border-gray-500 hover:text-white transition-all"
+          >
+            See How It Works
+          </a>
+        </div>
+
+        {/* Trust indicators */}
+        <div className="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-gray-500">
+          <span>Stage-agnostic evaluation</span>
+          <span className="hidden sm:inline">·</span>
+          <span>AI-powered scoring</span>
+          <span className="hidden sm:inline">·</span>
+          <span>Investor-ready reports</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HowItWorks() {
+  const steps = [
+    {
+      number: "01",
+      title: "Submit Your Startup",
+      description:
+        "Share your idea, prototype, MVP, or revenue business. We accept startups at every stage — no funding required.",
+      icon: (
+        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M12 4v16m8-8H4"
+          />
+        </svg>
+      ),
+    },
+    {
+      number: "02",
+      title: "AI Evaluates Your Startup",
+      description:
+        "Our AI produces stage-appropriate scoring, market analysis, and identifies strengths and weaknesses with precision.",
+      icon: (
+        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
+          />
+        </svg>
+      ),
+    },
+    {
+      number: "03",
+      title: "Get Your Intelligence Report",
+      description:
+        "Receive actionable feedback and a strategic improvement roadmap tailored to your startup's stage and goals.",
+      icon: (
+        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+          />
+        </svg>
+      ),
+    },
+    {
+      number: "04",
+      title: "Connect With Opportunities",
+      description:
+        "Get matched with relevant investors, acquirers, or strategic partners who are actively looking for startups like yours.",
+      icon: (
+        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+          />
+        </svg>
+      ),
+    },
+  ];
+
+  return (
+    <section id="how-it-works" className="relative py-24 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-16 text-center">
+          <span className="mb-4 inline-block rounded-full bg-teal-500/10 px-4 py-1.5 text-sm font-medium text-teal-400">
+            How It Works
+          </span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            From idea to exit — in four steps
+          </h2>
+          <p className="mt-4 text-gray-400">
+            Our AI-powered platform evaluates and connects startups at every stage of growth.
+          </p>
+        </div>
+
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step, i) => (
+            <div key={step.number} className="relative group">
+              {/* Connector line */}
+              {i < steps.length - 1 && (
+                <div className="absolute top-8 left-full hidden h-px w-8 bg-gradient-to-r from-gray-700 to-transparent lg:block" />
+              )}
+              <div className="rounded-2xl border border-gray-800 bg-gray-900/50 p-6 hover:border-gray-700 hover:bg-gray-900/80 transition-all">
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="text-3xl font-bold text-gray-700">
+                    {step.number}
+                  </span>
+                  <span className="text-teal-400">{step.icon}</span>
+                </div>
+                <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Pricing() {
+  const tiers = [
+    {
+      name: "Free",
+      price: "$0",
+      period: "forever",
+      description: "Get your startup evaluated and understand where you stand.",
+      features: [
+        "Basic evaluation & score",
+        "Strengths & weaknesses analysis",
+        "Stage assessment",
+        "Public profile listing",
+      ],
+      cta: "Get Started Free",
+      href: "#submit",
+      highlighted: false,
+    },
+    {
+      name: "Professional",
+      price: "$299",
+      period: "one-time",
+      description:
+        "Deep intelligence for founders preparing to raise or sell.",
+      features: [
+        "Deep intelligence report",
+        "Investor readiness score",
+        "Acquisition potential score",
+        "Technical analysis",
+        "Strategic roadmap",
+        "Market positioning analysis",
+        "Competitive landscape",
+      ],
+      cta: "Get Professional Report",
+      href: "#submit",
+      highlighted: true,
+    },
+    {
+      name: "Enterprise",
+      price: "$2,500+",
+      period: "custom",
+      description:
+        "Full due diligence for serious transactions and acquisitions.",
+      features: [
+        "Full due diligence package",
+        "Custom analysis & deep dives",
+        "Acquisition preparation",
+        "Ongoing advisory support",
+        "Private investor matching",
+        "Term sheet review",
+        "Priority concierge support",
+      ],
+      cta: "Contact Sales",
+      href: "#submit",
+      highlighted: false,
+    },
+  ];
+
+  return (
+    <section id="pricing" className="relative py-24 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-16 text-center">
+          <span className="mb-4 inline-block rounded-full bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-400">
+            Pricing
+          </span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            Intelligence for every stage
+          </h2>
+          <p className="mt-4 text-gray-400">
+            From a free first look to full enterprise due diligence.
+          </p>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-3">
+          {tiers.map((tier) => (
+            <div
+              key={tier.name}
+              className={`relative rounded-2xl border p-8 flex flex-col ${
+                tier.highlighted
+                  ? "border-indigo-500/50 bg-indigo-500/5 ring-1 ring-indigo-500/20"
+                  : "border-gray-800 bg-gray-900/30"
+              }`}
+            >
+              {tier.highlighted && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-indigo-600 px-4 py-1 text-xs font-semibold text-white">
+                  Most Popular
+                </span>
+              )}
+              <div className="mb-6">
+                <h3 className="text-xl font-bold">{tier.name}</h3>
+                <div className="mt-3 flex items-baseline gap-1">
+                  <span className="text-4xl font-extrabold">{tier.price}</span>
+                  <span className="text-gray-500 text-sm">/{tier.period}</span>
+                </div>
+                <p className="mt-3 text-sm text-gray-400">{tier.description}</p>
+              </div>
+
+              <ul className="mb-8 flex-1 space-y-3">
+                {tier.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3 text-sm">
+                    <svg
+                      className={`mt-0.5 h-4 w-4 flex-shrink-0 ${
+                        tier.highlighted ? "text-indigo-400" : "text-teal-400"
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    <span className="text-gray-300">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={tier.href}
+                className={`block rounded-xl px-6 py-3 text-center text-sm font-semibold transition-all ${
+                  tier.highlighted
+                    ? "bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-600/25"
+                    : "border border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white"
+                }`}
+              >
+                {tier.cta}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SubmissionForm() {
+  const [formState, setFormState] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
+    setFormState("submitting");
+    setErrorMsg("");
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const data: Record<string, unknown> = {};
-    formData.forEach((value, key) => {
-      if (key in data) {
-        const existing = data[key];
-        if (Array.isArray(existing)) {
-          existing.push(value);
-        } else {
-          data[key] = [existing, value];
-        }
-      } else {
-        data[key] = value;
-      }
-    });
-
-    // Explicitly set boolean checkbox values from state (checkboxes only appear
-    // in FormData when checked; we need to send the actual boolean for unchecked)
-    data["hasRevenue"] = hasRevenue ? "true" : "false";
-    data["hasMVP"] = hasMVP ? "true" : "false";
-
-    if (stage) {
-      data["stage"] = stage;
-    }
 
     try {
-      const result: EvaluationResult = await evaluate({ data });
-      navigate({ to: "/results", state: { result } });
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An unexpected error occurred. Please try again."
-      );
-      setLoading(false);
-    }
-  }
+      const result = await submitEvaluation({
+        data: {
+          startupName: String(formData.get("startupName") ?? ""),
+          stage: String(formData.get("stage") ?? ""),
+          description: String(formData.get("description") ?? ""),
+          url: String(formData.get("url") ?? ""),
+          email: String(formData.get("email") ?? ""),
+        },
+      });
 
-  function handleStageChange(newStage: Stage | "") {
-    setStage(newStage);
-    setHasRevenue(false);
-    setHasMVP(false);
-  }
+      if (result.success) {
+        setFormState("success");
+        form.reset();
+      } else {
+        setFormState("error");
+        setErrorMsg("Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      setFormState("error");
+      setErrorMsg(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+    }
+  };
+
+  const stages = [
+    "Concept",
+    "Prototype",
+    "MVP",
+    "Revenue-Generating",
+    "Acquisition-Ready",
+  ];
 
   return (
-    <main className="min-h-dvh bg-gray-950 text-gray-100">
-      {/* Header */}
-      <header className="border-b border-gray-800">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <a href="/" className="text-xl font-bold tracking-tight text-white">
-            StartupIQ
-          </a>
-          <nav className="hidden gap-6 text-sm text-gray-400 sm:flex">
-            <a href="#evaluate" className="hover:text-white transition-colors">
-              Evaluate
-            </a>
-            <a href="#pricing" className="hover:text-white transition-colors">
-              Pricing
-            </a>
-            <a href="#how-it-works" className="hover:text-white transition-colors">
-              How It Works
-            </a>
-          </nav>
-        </div>
-      </header>
+    <section id="submit" className="relative py-24 px-6">
+      {/* Background accent */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[400px] w-[600px] rounded-full bg-indigo-600/10 blur-[120px]" />
+      </div>
 
-      {/* Hero */}
-      <section className="px-6 py-16 text-center sm:py-24">
-        <span className="inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-medium text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
-          AI-Powered Startup Intelligence
-        </span>
-        <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-6xl">
-          Get an objective, evidence-based evaluation of your startup — at any stage
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-gray-400">
-          From napkin sketch to acquisition-ready. StartupIQ evaluates your startup against
-          stage-appropriate criteria and shows you exactly how to improve.
-        </p>
-      </section>
-
-      {/* Form section */}
-      <section id="evaluate" className="px-6 pb-24">
-        <div className="mx-auto max-w-2xl rounded-2xl border border-gray-800 bg-gray-900/50 p-6 sm:p-8">
-          <h2 className="text-2xl font-bold text-white">Evaluate Your Startup</h2>
-          <p className="mt-1 text-sm text-gray-400">
-            Free evaluation takes ~3 minutes. No signup required.
+      <div className="relative mx-auto max-w-2xl">
+        <div className="mb-12 text-center">
+          <span className="mb-4 inline-block rounded-full bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-400">
+            Get Evaluated
+          </span>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            Submit Your Startup
+          </h2>
+          <p className="mt-4 text-gray-400">
+            Get a free AI-powered evaluation in minutes. No credit card
+            required.
           </p>
+        </div>
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-            {/* Basic fields */}
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="startupName" className="block text-sm font-medium text-gray-300">
-                  Startup Name <span className="text-indigo-400">*</span>
-                </label>
-                <input
-                  id="startupName"
-                  name="startupName"
-                  type="text"
-                  required
-                  placeholder="e.g. Acme Analytics"
-                  className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+        {formState === "success" ? (
+          <div className="rounded-2xl border border-teal-500/30 bg-teal-500/5 p-8 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-teal-500/10">
+              <svg
+                className="h-8 w-8 text-teal-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
                 />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                  Your Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="description" className="block text-sm font-medium text-gray-300">
-                  Describe Your Startup <span className="text-indigo-400">*</span>
-                </label>
-                <textarea
-                  id="description"
-                  name="description"
-                  required
-                  rows={3}
-                  placeholder="What problem are you solving? Who is it for? What's your solution?"
-                  className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="url" className="block text-sm font-medium text-gray-300">
-                  Website URL
-                </label>
-                <input
-                  id="url"
-                  name="url"
-                  type="url"
-                  placeholder="https://yourstartup.com"
-                  className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="stage" className="block text-sm font-medium text-gray-300">
-                  What stage is your startup at? <span className="text-indigo-400">*</span>
-                </label>
-                <select
-                  id="stage"
-                  name="stage"
-                  required
-                  value={stage}
-                  onChange={(e) => handleStageChange(e.target.value as Stage | "")}
-                  className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                >
-                  <option value="">Select a stage...</option>
-                  {stageOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold">Submission Received!</h3>
+            <p className="mt-2 text-gray-400">
+              We're evaluating your startup now. You'll receive your
+              intelligence report via email shortly.
+            </p>
+            <button
+              onClick={() => setFormState("idle")}
+              className="mt-6 rounded-lg border border-gray-700 px-6 py-2 text-sm text-gray-300 hover:border-gray-500 hover:text-white transition-all"
+            >
+              Submit Another Startup
+            </button>
+          </div>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6 rounded-2xl border border-gray-800 bg-gray-900/50 p-8 backdrop-blur-sm"
+          >
+            <div>
+              <label
+                htmlFor="startupName"
+                className="mb-2 block text-sm font-medium text-gray-300"
+              >
+                Startup Name *
+              </label>
+              <input
+                id="startupName"
+                name="startupName"
+                type="text"
+                required
+                placeholder="e.g. Acme AI"
+                className="w-full rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-3 text-white placeholder-gray-500 outline-none transition-colors focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+              />
             </div>
 
-            {/* Stage detection fields */}
-            {stage && (
-              <div className="space-y-4 rounded-xl border border-gray-800 bg-gray-900/70 p-4 sm:p-5">
-                <h3 className="text-sm font-semibold text-gray-200">Stage Detection Signals</h3>
-                <p className="text-xs text-gray-500">
-                  These help us verify your stage and provide a more accurate evaluation.
-                </p>
+            <div>
+              <label
+                htmlFor="stage"
+                className="mb-2 block text-sm font-medium text-gray-300"
+              >
+                Stage *
+              </label>
+              <select
+                id="stage"
+                name="stage"
+                required
+                defaultValue=""
+                className="w-full rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-3 text-white outline-none transition-colors focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+              >
+                <option value="" disabled>
+                  Select your stage
+                </option>
+                {stages.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-                <label className="flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    name="hasRevenue"
-                    checked={hasRevenue}
-                    onChange={(e) => setHasRevenue(e.target.checked)}
-                    className="h-4 w-4 rounded border-gray-600 bg-gray-700 text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <span className="text-sm text-gray-300">Has revenue (≥$1K MRR or equivalent)</span>
-                </label>
+            <div>
+              <label
+                htmlFor="description"
+                className="mb-2 block text-sm font-medium text-gray-300"
+              >
+                Short Description *
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                required
+                rows={3}
+                placeholder="What does your startup do?"
+                className="w-full resize-none rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-3 text-white placeholder-gray-500 outline-none transition-colors focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+              />
+            </div>
 
-                {hasRevenue && (
-                  <div>
-                    <label htmlFor="revenueAmount" className="block text-sm font-medium text-gray-300">
-                      Monthly Revenue ($)
-                    </label>
-                    <input
-                      id="revenueAmount"
-                      name="revenueAmount"
-                      type="number"
-                      min="0"
-                      placeholder="e.g. 5000"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                )}
+            <div>
+              <label
+                htmlFor="url"
+                className="mb-2 block text-sm font-medium text-gray-300"
+              >
+                Website or GitHub URL
+              </label>
+              <input
+                id="url"
+                name="url"
+                type="url"
+                placeholder="https://..."
+                className="w-full rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-3 text-white placeholder-gray-500 outline-none transition-colors focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+              />
+            </div>
 
-                <label className="flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    name="hasMVP"
-                    checked={hasMVP}
-                    onChange={(e) => setHasMVP(e.target.checked)}
-                    className="h-4 w-4 rounded border-gray-600 bg-gray-700 text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <span className="text-sm text-gray-300">Has a live MVP with real users</span>
-                </label>
+            <div>
+              <label
+                htmlFor="email"
+                className="mb-2 block text-sm font-medium text-gray-300"
+              >
+                Email *
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="you@example.com"
+                className="w-full rounded-xl border border-gray-700 bg-gray-900/80 px-4 py-3 text-white placeholder-gray-500 outline-none transition-colors focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+              />
+            </div>
 
-                {hasMVP && (
-                  <div>
-                    <label htmlFor="userCount" className="block text-sm font-medium text-gray-300">
-                      Number of Users
-                    </label>
-                    <input
-                      id="userCount"
-                      name="userCount"
-                      type="number"
-                      min="0"
-                      placeholder="e.g. 500"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                )}
-
-                <label className="flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    name="hasPrototype"
-                    className="h-4 w-4 rounded border-gray-600 bg-gray-700 text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <span className="text-sm text-gray-300">Has a working prototype (not yet live)</span>
-                </label>
-              </div>
-            )}
-
-            {/* Concept stage fields */}
-            {stage === "concept" && (
-              <div className="space-y-4 rounded-xl border border-gray-800 bg-gray-900/70 p-4 sm:p-5">
-                <h3 className="text-sm font-semibold text-gray-200">Concept Details</h3>
-                <p className="text-xs text-gray-500">
-                  The more detail you provide, the more accurate your evaluation.
-                </p>
-
-                <div>
-                  <label htmlFor="problemStatement" className="block text-sm font-medium text-gray-300">
-                    Problem Statement
-                  </label>
-                  <textarea
-                    id="problemStatement"
-                    name="problemStatement"
-                    rows={2}
-                    placeholder="What painful, urgent problem are you solving?"
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="targetUser" className="block text-sm font-medium text-gray-300">
-                    Target User
-                  </label>
-                  <input
-                    id="targetUser"
-                    name="targetUser"
-                    type="text"
-                    placeholder="Who experiences this problem? Be specific."
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="uniqueValueProp" className="block text-sm font-medium text-gray-300">
-                    Unique Value Proposition
-                  </label>
-                  <textarea
-                    id="uniqueValueProp"
-                    name="uniqueValueProp"
-                    rows={2}
-                    placeholder="How is your solution different from what exists today?"
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="tamEstimate" className="block text-sm font-medium text-gray-300">
-                      TAM Estimate ($)
-                    </label>
-                    <input
-                      id="tamEstimate"
-                      name="tamEstimate"
-                      type="number"
-                      min="0"
-                      placeholder="e.g. 500000000"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="marketGrowthRate" className="block text-sm font-medium text-gray-300">
-                      Market Growth Rate (% CAGR)
-                    </label>
-                    <input
-                      id="marketGrowthRate"
-                      name="marketGrowthRate"
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="0.1"
-                      placeholder="e.g. 15"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="founderBackground" className="block text-sm font-medium text-gray-300">
-                    Founder Background
-                  </label>
-                  <textarea
-                    id="founderBackground"
-                    name="founderBackground"
-                    rows={2}
-                    placeholder="Relevant domain experience, skills, and track record."
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="founderExperienceYears" className="block text-sm font-medium text-gray-300">
-                    Years of Domain Experience
-                  </label>
-                  <input
-                    id="founderExperienceYears"
-                    name="founderExperienceYears"
-                    type="number"
-                    min="0"
-                    placeholder="e.g. 5"
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Prototype stage fields */}
-            {stage === "prototype" && (
-              <div className="space-y-4 rounded-xl border border-gray-800 bg-gray-900/70 p-4 sm:p-5">
-                <h3 className="text-sm font-semibold text-gray-200">Prototype Details</h3>
-                <p className="text-xs text-gray-500">
-                  Tell us about what you've built so far.
-                </p>
-
-                <div>
-                  <label htmlFor="technicalArchitecture" className="block text-sm font-medium text-gray-300">
-                    Technical Architecture
-                  </label>
-                  <textarea
-                    id="technicalArchitecture"
-                    name="technicalArchitecture"
-                    rows={2}
-                    placeholder="Tech stack, architecture decisions, key components."
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="prototypeDemo" className="block text-sm font-medium text-gray-300">
-                    Prototype Demo Link
-                  </label>
-                  <input
-                    id="prototypeDemo"
-                    name="prototypeDemo"
-                    type="url"
-                    placeholder="Link to video, screenshots, or live demo"
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="productDesignNotes" className="block text-sm font-medium text-gray-300">
-                    Product Design Notes
-                  </label>
-                  <textarea
-                    id="productDesignNotes"
-                    name="productDesignNotes"
-                    rows={2}
-                    placeholder="UX approach, design principles, user workflows."
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="innovationThesis" className="block text-sm font-medium text-gray-300">
-                    Innovation Thesis
-                  </label>
-                  <textarea
-                    id="innovationThesis"
-                    name="innovationThesis"
-                    rows={2}
-                    placeholder="What's novel about your approach? Why can't incumbents easily copy it?"
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="developmentTimeline" className="block text-sm font-medium text-gray-300">
-                    Development Timeline
-                  </label>
-                  <textarea
-                    id="developmentTimeline"
-                    name="developmentTimeline"
-                    rows={2}
-                    placeholder="When did you start? Key milestones achieved. Time to MVP."
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* MVP stage fields */}
-            {stage === "mvp" && (
-              <div className="space-y-4 rounded-xl border border-gray-800 bg-gray-900/70 p-4 sm:p-5">
-                <h3 className="text-sm font-semibold text-gray-200">MVP Metrics</h3>
-                <p className="text-xs text-gray-500">
-                  Share your key user metrics for a data-driven evaluation.
-                </p>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="mauCount" className="block text-sm font-medium text-gray-300">
-                      Monthly Active Users (MAU)
-                    </label>
-                    <input
-                      id="mauCount"
-                      name="mauCount"
-                      type="number"
-                      min="0"
-                      placeholder="e.g. 500"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="userGrowthRate" className="block text-sm font-medium text-gray-300">
-                      User Growth Rate (% MoM)
-                    </label>
-                    <input
-                      id="userGrowthRate"
-                      name="userGrowthRate"
-                      type="number"
-                      min="0"
-                      step="0.1"
-                      placeholder="e.g. 15"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="dauMauRatio" className="block text-sm font-medium text-gray-300">
-                      DAU/MAU Ratio (%)
-                    </label>
-                    <input
-                      id="dauMauRatio"
-                      name="dauMauRatio"
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="0.1"
-                      placeholder="e.g. 25"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="day1Retention" className="block text-sm font-medium text-gray-300">
-                      Day-1 Retention (%)
-                    </label>
-                    <input
-                      id="day1Retention"
-                      name="day1Retention"
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="0.1"
-                      placeholder="e.g. 45"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="day30Retention" className="block text-sm font-medium text-gray-300">
-                      Day-30 Retention (%)
-                    </label>
-                    <input
-                      id="day30Retention"
-                      name="day30Retention"
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="0.1"
-                      placeholder="e.g. 20"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="npsScore" className="block text-sm font-medium text-gray-300">
-                      NPS Score
-                    </label>
-                    <input
-                      id="npsScore"
-                      name="npsScore"
-                      type="number"
-                      min="-100"
-                      max="100"
-                      placeholder="e.g. 40"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="feedbackSummary" className="block text-sm font-medium text-gray-300">
-                    Customer Feedback Summary
-                  </label>
-                  <textarea
-                    id="feedbackSummary"
-                    name="feedbackSummary"
-                    rows={2}
-                    placeholder="What are users saying? Key themes from feedback, reviews, or interviews."
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Revenue stage fields */}
-            {stage === "revenue" && (
-              <div className="space-y-4 rounded-xl border border-gray-800 bg-gray-900/70 p-4 sm:p-5">
-                <h3 className="text-sm font-semibold text-gray-200">Revenue & Growth Metrics</h3>
-                <p className="text-xs text-gray-500">
-                  Financial metrics drive evaluation at this stage.
-                </p>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="mrr" className="block text-sm font-medium text-gray-300">
-                      MRR ($)
-                    </label>
-                    <input
-                      id="mrr"
-                      name="mrr"
-                      type="number"
-                      min="0"
-                      placeholder="e.g. 5000"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="arr" className="block text-sm font-medium text-gray-300">
-                      ARR ($)
-                    </label>
-                    <input
-                      id="arr"
-                      name="arr"
-                      type="number"
-                      min="0"
-                      placeholder="e.g. 60000"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="yoyGrowthRate" className="block text-sm font-medium text-gray-300">
-                      YoY Growth Rate (%)
-                    </label>
-                    <input
-                      id="yoyGrowthRate"
-                      name="yoyGrowthRate"
-                      type="number"
-                      min="0"
-                      step="0.1"
-                      placeholder="e.g. 80"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="grossMargin" className="block text-sm font-medium text-gray-300">
-                      Gross Margin (%)
-                    </label>
-                    <input
-                      id="grossMargin"
-                      name="grossMargin"
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="0.1"
-                      placeholder="e.g. 75"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="revenueComposition" className="block text-sm font-medium text-gray-300">
-                    Revenue Composition
-                  </label>
-                  <textarea
-                    id="revenueComposition"
-                    name="revenueComposition"
-                    rows={2}
-                    placeholder="Subscription, usage-based, one-time, services? What % is recurring?"
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  <div>
-                    <label htmlFor="ltvCacRatio" className="block text-sm font-medium text-gray-300">
-                      LTV:CAC Ratio
-                    </label>
-                    <input
-                      id="ltvCacRatio"
-                      name="ltvCacRatio"
-                      type="number"
-                      min="0"
-                      step="0.1"
-                      placeholder="e.g. 3.5"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="logoChurnRate" className="block text-sm font-medium text-gray-300">
-                      Logo Churn Rate (%)
-                    </label>
-                    <input
-                      id="logoChurnRate"
-                      name="logoChurnRate"
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="0.1"
-                      placeholder="e.g. 3"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="runwayMonths" className="block text-sm font-medium text-gray-300">
-                      Cash Runway (months)
-                    </label>
-                    <input
-                      id="runwayMonths"
-                      name="runwayMonths"
-                      type="number"
-                      min="0"
-                      placeholder="e.g. 18"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Acquisition-ready fields */}
-            {stage === "acquisition-ready" && (
-              <div className="space-y-4 rounded-xl border border-gray-800 bg-gray-900/70 p-4 sm:p-5">
-                <h3 className="text-sm font-semibold text-gray-200">Acquisition Signals</h3>
-                <p className="text-xs text-gray-500">
-                  Tell us about your strategic assets and acquisition readiness.
-                </p>
-
-                <div>
-                  <label htmlFor="acquirerList" className="block text-sm font-medium text-gray-300">
-                    Likely Acquirers
-                  </label>
-                  <textarea
-                    id="acquirerList"
-                    name="acquirerList"
-                    rows={2}
-                    placeholder="Which companies would find your startup strategically valuable? Why?"
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="patentCount" className="block text-sm font-medium text-gray-300">
-                      Number of Patents
-                    </label>
-                    <input
-                      id="patentCount"
-                      name="patentCount"
-                      type="number"
-                      min="0"
-                      placeholder="e.g. 3"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="engineeringTeamSize" className="block text-sm font-medium text-gray-300">
-                      Engineering Team Size
-                    </label>
-                    <input
-                      id="engineeringTeamSize"
-                      name="engineeringTeamSize"
-                      type="number"
-                      min="0"
-                      placeholder="e.g. 8"
-                      className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="capTableSummary" className="block text-sm font-medium text-gray-300">
-                    Cap Table Summary
-                  </label>
-                  <textarea
-                    id="capTableSummary"
-                    name="capTableSummary"
-                    rows={2}
-                    placeholder="Brief overview: founder ownership, investors, option pool, etc."
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="ipAssignmentStatus" className="block text-sm font-medium text-gray-300">
-                    IP Assignment Status
-                  </label>
-                  <input
-                    id="ipAssignmentStatus"
-                    name="ipAssignmentStatus"
-                    type="text"
-                    placeholder="e.g. All IP assigned to company, clean chain of title"
-                    className="mt-1.5 block w-full rounded-lg border border-gray-700 bg-gray-800 px-3.5 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Error message */}
-            {error && (
+            {formState === "error" && (
               <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-400">
-                {error}
+                {errorMsg}
               </div>
             )}
 
-            {/* Submit */}
             <button
               type="submit"
-              disabled={loading || !stage}
-              className="w-full rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
+              disabled={formState === "submitting"}
+              className="w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white shadow-lg shadow-indigo-600/30 hover:bg-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? (
+              {formState === "submitting" ? (
                 <span className="flex items-center justify-center gap-2">
-                  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  <svg
+                    className="h-5 w-5 animate-spin"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    />
                   </svg>
-                  Evaluating...
+                  Submitting...
                 </span>
               ) : (
                 "Get Your Free Evaluation"
               )}
             </button>
+
+            <p className="text-center text-xs text-gray-500">
+              By submitting, you agree to StartupIQ's evaluation process. We'll
+              never share your data without permission.
+            </p>
           </form>
-        </div>
-      </section>
+        )}
+      </div>
+    </section>
+  );
+}
 
-      {/* How It Works */}
-      <section id="how-it-works" className="border-t border-gray-800 px-6 py-20">
-        <div className="mx-auto max-w-5xl text-center">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">How It Works</h2>
-          <div className="mt-12 grid gap-8 sm:grid-cols-3">
-            {[
-              {
-                step: "1",
-                title: "Tell us about your startup",
-                desc: "Fill out a short form about your idea, product, or business. Takes ~3 minutes.",
-              },
-              {
-                step: "2",
-                title: "AI evaluates your startup",
-                desc: "Our engine analyzes your submission against stage-appropriate criteria with evidence-based scoring.",
-              },
-              {
-                step: "3",
-                title: "Get your StartupIQ Score",
-                desc: "Receive your score, strengths, weaknesses, and actionable recommendations to improve.",
-              },
-            ].map((item) => (
-              <div key={item.step} className="rounded-xl border border-gray-800 bg-gray-900/50 p-6">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/10 text-sm font-bold text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
-                  {item.step}
-                </span>
-                <h3 className="mt-4 text-lg font-semibold text-white">{item.title}</h3>
-                <p className="mt-2 text-sm text-gray-400">{item.desc}</p>
-              </div>
-            ))}
+function Footer() {
+  return (
+    <footer className="border-t border-gray-800 px-6 py-12">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
+          <div className="flex items-center gap-2">
+            <span className="text-lg font-bold tracking-tight">
+              <span className="text-indigo-400">Startup</span>
+              <span className="text-white">IQ</span>
+            </span>
+            <span className="text-xs text-gray-600">
+              © {new Date().getFullYear()}
+            </span>
           </div>
-        </div>
-      </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="border-t border-gray-800 px-6 py-20">
-        <div className="mx-auto max-w-5xl text-center">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">Pricing</h2>
-          <p className="mt-3 text-gray-400">From free evaluation to institutional-grade due diligence.</p>
-          <div className="mt-12 grid gap-8 sm:grid-cols-3">
-            {[
-              {
-                name: "Free",
-                price: "$0",
-                features: [
-                  "StartupIQ Score (0–100)",
-                  "Stage classification",
-                  "Top 3 strengths",
-                  "Top 3 improvement areas",
-                  "Peer percentile rank",
-                  "Executive summary",
-                ],
-                cta: "Start Free",
-                highlight: false,
-              },
-              {
-                name: "Professional",
-                price: "$299",
-                features: [
-                  "Everything in Free",
-                  "Full dimensional breakdown",
-                  "Improvement roadmap",
-                  "Risk & opportunity assessment",
-                  "Benchmark comparison",
-                  "Trajectory indicator",
-                  "Investor readiness score",
-                ],
-                cta: "Get Professional Report",
-                highlight: true,
-              },
-              {
-                name: "Enterprise",
-                price: "$2,500+",
-                features: [
-                  "Everything in Professional",
-                  "Analyst deep-dive review",
-                  "Financial analysis",
-                  "Acquisition readiness scorecard",
-                  "Competitive benchmarking",
-                  "Investor package",
-                  "Dedicated analyst support",
-                ],
-                cta: "Contact Us",
-                highlight: false,
-              },
-            ].map((tier) => (
-              <div
-                key={tier.name}
-                className={`rounded-2xl border p-6 text-left ${
-                  tier.highlight
-                    ? "border-indigo-500/50 bg-indigo-500/5 ring-1 ring-indigo-500/30"
-                    : "border-gray-800 bg-gray-900/50"
-                }`}
-              >
-                <h3 className="text-lg font-semibold text-white">{tier.name}</h3>
-                <p className="mt-2 text-3xl font-bold text-white">{tier.price}</p>
-                {tier.name === "Enterprise" && (
-                  <p className="text-xs text-gray-500">one-time, starting at</p>
-                )}
-                <ul className="mt-6 space-y-2.5">
-                  {tier.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-gray-400">
-                      <svg className="mt-0.5 h-4 w-4 flex-none text-indigo-500" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={tier.name === "Enterprise" ? "mailto:hello@startupiq.dev" : "#evaluate"}
-                  className={`mt-6 block rounded-lg px-4 py-2.5 text-center text-sm font-semibold transition-colors ${
-                    tier.highlight
-                      ? "bg-indigo-600 text-white hover:bg-indigo-500"
-                      : "bg-gray-800 text-white hover:bg-gray-700"
-                  }`}
-                >
-                  {tier.cta}
-                </a>
-              </div>
-            ))}
+          <div className="flex items-center gap-8 text-sm text-gray-500">
+            <a href="#how-it-works" className="hover:text-white transition-colors">
+              How It Works
+            </a>
+            <a href="#pricing" className="hover:text-white transition-colors">
+              Pricing
+            </a>
+            <a href="#submit" className="hover:text-white transition-colors">
+              Get Evaluated
+            </a>
           </div>
-        </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-800 px-6 py-8 text-center text-sm text-gray-600">
-        <p>StartupIQ — AI-powered startup intelligence. Built with cto.new</p>
-      </footer>
-    </main>
+          <p className="text-xs text-gray-600">
+            AI-Powered Startup Intelligence Platform
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ---- Main Page Component ----
+function Home() {
+  return (
+    <div className="min-h-dvh">
+      <NavBar />
+      <Hero />
+      <HowItWorks />
+      <Pricing />
+      <SubmissionForm />
+      <Footer />
+    </div>
   );
 }
