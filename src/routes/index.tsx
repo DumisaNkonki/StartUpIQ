@@ -624,6 +624,66 @@ function SubmissionForm() {
   );
 }
 
+function AIModels() {
+  const models = [
+    "GPT-5.5",
+    "Claude Opus 4.8",
+    "Claude Sonnet 4.6",
+    "Gemini 3.1 Pro",
+    "Grok 4.20",
+    "GPT-5.3 Codex",
+    "DeepSeek V4 Pro",
+    "Kimi K2.7",
+  ];
+
+  return (
+    <section className="relative py-20 px-6">
+      <div className="mx-auto max-w-4xl text-center">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-gray-700/60 bg-gray-900/40 px-4 py-1.5">
+          <span className="flex h-2 w-2">
+            <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-teal-400/60 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-400" />
+          </span>
+          <span className="text-xs font-medium uppercase tracking-wider text-gray-500">
+            Intelligence Engine
+          </span>
+        </div>
+
+        <h2 className="mb-4 text-2xl font-bold tracking-tight sm:text-3xl">
+          Powered by a Multi-Model AI Intelligence Engine
+        </h2>
+
+        <p className="mx-auto mb-10 max-w-2xl text-gray-400 leading-relaxed">
+          StartupIQ combines leading AI intelligence systems to evaluate
+          startups from multiple perspectives — including market opportunity,
+          business strategy, technical capability, financial potential, and
+          acquisition readiness.
+        </p>
+
+        {/* Model chips grid */}
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          {models.map((model) => (
+            <span
+              key={model}
+              className="inline-flex items-center rounded-full border border-gray-700/50 bg-gray-900/60 px-4 py-2 text-sm text-gray-300 backdrop-blur-sm transition-colors hover:border-gray-600 hover:text-white"
+            >
+              <span className="mr-2 h-1.5 w-1.5 rounded-full bg-teal-400/60" />
+              {model}
+            </span>
+          ))}
+          <span className="inline-flex items-center rounded-full border border-gray-800/40 bg-gray-900/30 px-3 py-2 text-sm text-gray-600">
+            ...
+          </span>
+        </div>
+
+        <p className="mt-6 text-xs text-gray-600">
+          New models are continuously evaluated and integrated.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function Footer() {
   return (
     <footer className="border-t border-gray-800 px-6 py-12">
@@ -669,6 +729,7 @@ function Home() {
       <HowItWorks />
       <Pricing />
       <SubmissionForm />
+      <AIModels />
       <Footer />
     </div>
   );
