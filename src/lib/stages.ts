@@ -51,6 +51,7 @@ export interface EvaluationResult {
   evaluationId?: number;
   submissionId?: number;
   startupName: string;
+  founderEmail?: string;
   detectedStage: Stage;
   selfReportedStage?: Stage;
   stageDiscrepancy: boolean;

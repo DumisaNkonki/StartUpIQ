@@ -104,6 +104,7 @@ function Results() {
     dimensionScores,
     stageDiscrepancy,
     selfReportedStage,
+    founderEmail,
   } = result;
 
   return (
@@ -133,6 +134,12 @@ function Results() {
             <p className="mt-2 text-xs text-amber-400/80">
               Note: You self-reported as {STAGE_LABELS[selfReportedStage]}, but our detection
               classified you as {STAGE_LABELS[detectedStage]} based on your data.
+            </p>
+          )}
+          {founderEmail && (
+            <p className="mt-3 text-xs text-gray-500">
+              A copy of this report has been sent to{" "}
+              <span className="text-gray-400">{founderEmail}</span>.
             </p>
           )}
           <div className="mt-8 flex justify-center">

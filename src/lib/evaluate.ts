@@ -56,6 +56,7 @@ export async function evaluateStartup(
 
   const result: EvaluationResult = {
     startupName: data.startupName,
+    founderEmail: data.founderEmail,
     detectedStage,
     selfReportedStage: data.selfReportedStage,
     stageDiscrepancy,
